@@ -1,0 +1,19 @@
+
+insurai-backend/target/
+insurai-backend/.classpath
+insurai-backend/.project
+insurai-backend/.settings/
+
+insurai-frontend/node_modules/
+insurai-frontend/dist/
+
+
+*.zip
+*.pptx
+*.log
+.DS_Store
+
+
+Milestone 1/
+Milestone 2/
+Milestone 3/
