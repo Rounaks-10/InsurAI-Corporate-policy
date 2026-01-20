@@ -1,17 +1,24 @@
-# Use Eclipse Temurin JDK 21 (Alpine version for smaller image)
-FROM eclipse-temurin:21-jdk-alpine
-
-# Set working directory inside the container
+# Stage 1: Build the JAR inside a Maven container
+FROM maven:3.9.4-eclipse-temurin-21 AS build
 WORKDIR /app
 
-# Copy Maven build output (your JAR) into the container
-COPY target/*.jar app.jar
+# Copy Maven files
+COPY pom.xml .
+COPY src ./src
 
-# Expose port for Render deployment
+# Build the Spring Boot JAR
+RUN mvn clean package -DskipTests
+
+# Stage 2: Create a lightweight runtime image
+FROM eclipse-temurin:21-jdk-alpine
+WORKDIR /app
+
+# Copy the JAR from the build stage
+COPY --from=build /app/target/*.jar app.jar
+
+# Expose port for Render
 EXPOSE 8080
-
-# Set environment variable (Render uses dynamic PORT)
 ENV PORT=8080
 
-# Run the Spring Boot application
+# Run the app
 ENTRYPOINT ["java", "-jar", "app.jar"]
