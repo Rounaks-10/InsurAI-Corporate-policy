@@ -50,7 +50,7 @@ public class ClaimController {
    @Autowired
     private AuditLogService auditLogService;
 
-    private final String uploadDir = "C:/Users/Jeevan/Documents/InsurAi/insurai-backend/uploads/";
+    private final String uploadDir = "D:\\InsurAI\\Documents";
 
 // -------------------- Submit Claim --------------------
 @PostMapping("")
