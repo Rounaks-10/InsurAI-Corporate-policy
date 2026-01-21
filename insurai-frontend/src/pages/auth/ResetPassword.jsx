@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import axios from "axios";
+import API from "../../api";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function ResetPassword() {
@@ -47,8 +47,8 @@ export default function ResetPassword() {
     setLoading(true);
     try {
       // Send new password to backend
-      const res = await axios.post(
-        `http://localhost:8080/auth/reset-password/${token}`,
+      const res = await API.post(
+        `/auth/reset-password/${token}`,
         { newPassword: password } // Backend expects this field
       );
 

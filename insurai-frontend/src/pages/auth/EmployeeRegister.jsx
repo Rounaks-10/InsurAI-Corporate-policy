@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { API_BASE_URL } from "../../api";
 
 export default function EmployeeRegister() {
   const [employeeId, setEmployeeId] = useState(""); 
@@ -37,7 +38,7 @@ export default function EmployeeRegister() {
     }
 
     try {
-      const res = await fetch("http://localhost:8080/auth/register", {
+      const res = await fetch(`${API_BASE_URL}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 

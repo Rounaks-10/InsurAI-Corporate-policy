@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { CSVLink } from "react-csv";
+import { API_BASE_URL } from "../../../api";
+
 
 const AdminAuditLogs = ({ themeColors }) => {
   const [logs, setLogs] = useState([]);
@@ -16,7 +18,7 @@ const AdminAuditLogs = ({ themeColors }) => {
   // Fetch logs from backend
   useEffect(() => {
     setLoading(true);
-    fetch("http://localhost:8080/admin/audit/logs", {
+    fetch(`${API_BASE_URL}/admin/audit/logs`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

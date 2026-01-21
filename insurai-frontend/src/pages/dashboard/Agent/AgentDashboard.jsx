@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../Dashboard.css";
-import axios from "axios";
+import API from "../../../api";
 import AgentQueries from "./AgentQueries";
 import AgentClaims from "./AgentClaims";
 import AgentAvailability from "./AgentAvailability";
@@ -42,7 +42,7 @@ export default function AgentDashboard() {
       const axiosConfig = { headers: { Authorization: `Bearer ${token}` } };
 
       // Fetch availability
-      axios.get(`http://localhost:8080/agent/${id}/availability`, axiosConfig)
+      API.get(`/agent/${id}/availability`, axiosConfig)
         .then(res => {
           if (res.data && typeof res.data.available === "boolean") {
             setAvailability(res.data.available);
@@ -52,14 +52,14 @@ export default function AgentDashboard() {
 
       // Fetch all employees once
       let employeeMap = {};
-      axios.get("http://localhost:8080/auth/employees", axiosConfig)
+      API.get("/auth/employees", axiosConfig)
         .then(empRes => {
           empRes.data.forEach(emp => {
             employeeMap[emp.id] = emp.name;
           });
 
           // Fetch all queries
-          axios.get(`http://localhost:8080/agent/queries/all/${id}`, axiosConfig)
+          API.get(`/agent/queries/all/${id}`, axiosConfig)
             .then(res => {
               if (res.data) {
                 const allQueries = res.data.map(q => ({
@@ -116,14 +116,14 @@ export default function AgentDashboard() {
 
       const axiosConfig = { headers: { Authorization: `Bearer ${token}` } };
 
-      await axios.post("http://localhost:8080/agent/availability", {
+      await API.post("/agent/availability", {
         agentId,
         available: newStatus,
         startTime: new Date().toISOString(),
         endTime: null
       }, axiosConfig);
 
-      const res = await axios.get(`http://localhost:8080/agent/${agentId}/availability`, axiosConfig);
+      const res = await API.get(`/agent/${agentId}/availability`, axiosConfig);
       if (res.data) setAvailability(res.data.available);
 
       alert(`You are now ${newStatus ? "available" : "unavailable"} for queries`);
@@ -149,14 +149,14 @@ export default function AgentDashboard() {
       const startISO = new Date(futureFrom).toISOString();
       const endISO = new Date(futureTo).toISOString();
 
-      await axios.post("http://localhost:8080/agent/availability", {
+      await API.post("/agent/availability", {
         agentId,
         available: true,
         startTime: startISO,
         endTime: endISO
       }, axiosConfig);
 
-      const res = await axios.get(`http://localhost:8080/agent/${agentId}/availability`, axiosConfig);
+      const res = await API.get(`/agent/${agentId}/availability`, axiosConfig);
       if (res.data) setAvailability(res.data.available);
 
       alert("Future availability scheduled successfully!");
@@ -177,8 +177,8 @@ export default function AgentDashboard() {
       const query = employeeQueries.find(q => q.id === id);
       if (!query) return alert("Query not found");
 
-      await axios.put(
-        `http://localhost:8080/agent/queries/respond/${id}`,
+      await API.put(
+        `/agent/queries/respond/${id}`,
         { response: responseText },
         { headers: { Authorization: `Bearer ${token}` } }
       );

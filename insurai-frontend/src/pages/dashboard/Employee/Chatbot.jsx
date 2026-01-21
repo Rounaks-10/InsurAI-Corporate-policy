@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import axios from 'axios';
+import API from "../../../api";
 
 const Chatbot = ({ employeeData = { name: 'Employee', claims: [], policies: [] } }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -62,8 +62,8 @@ const Chatbot = ({ employeeData = { name: 'Employee', claims: [], policies: [] }
     }
 
     try {
-      const response = await axios.post(
-        'http://localhost:8080/employee/chatbot',
+      const response = await API.post(
+        '/employee/chatbot',
         { message: userMessage.text },
         { headers: { Authorization: `Bearer ${token}` } }
       );

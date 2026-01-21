@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-
+import { API_BASE_URL } from "../../../api";
 export default function EmployeeClaims({
   activeTab,
   setActiveTab,
@@ -42,7 +42,7 @@ const fetchClaims = async () => {
 
   setLoading(true);
   try {
-    const res = await fetch("http://localhost:8080/employee/claims", {
+    const res = await fetch(`${API_BASE_URL}/employee/claims`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     if (!res.ok) throw new Error("Failed to fetch claims");
@@ -225,9 +225,9 @@ const fetchClaims = async () => {
 
       newClaim.documents.forEach(file => formData.append("documents", file));
 
-      let url = "http://localhost:8080/employee/claims";
+      let url = `${API_BASE_URL}/employee/claims`;
       if (newClaim.id) {
-        url = "http://localhost:8080/employee/claims/update";
+        url = `${API_BASE_URL}/employee/claims/update`;
         formData.append("claimId", newClaim.id);
       }
 
@@ -920,7 +920,7 @@ const renderNewClaimForm = () => {
                               </small>
                             </div>
                             <div>
-                              <a href={`http://localhost:8080${doc}`} target="_blank" rel="noopener noreferrer"
+                              <a href={`${API_BASE_URL}${doc}`} target="_blank" rel="noopener noreferrer"
                                  className="btn btn-sm btn-outline-primary me-1" title="View">
                                 <i className="bi bi-eye"></i>
                               </a>

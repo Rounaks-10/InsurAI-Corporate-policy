@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { API_BASE_URL } from "../../api";
 
 export default function AgentLogin() {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ export default function AgentLogin() {
     }
 
     try {
-      const response = await fetch("http://localhost:8080/agent/login", {
+      const response = await fetch(`${API_BASE_URL}/agent/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 

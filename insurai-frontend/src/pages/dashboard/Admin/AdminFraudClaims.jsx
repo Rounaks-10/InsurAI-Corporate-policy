@@ -1,6 +1,6 @@
 // src/components/admin/AdminFraudClaims.jsx
 import React, { useState, useEffect, useMemo } from "react";
-import axios from "axios";
+import API from "../../../api";
 import { Bar, Pie, Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -61,7 +61,7 @@ export default function AdminFraudClaims() {
         const token = localStorage.getItem("token");
         if (!token) return console.error("❌ No admin token found!");
 
-        const response = await axios.get("http://localhost:8080/admin/claims/fraud", {
+        const response = await API.get("/admin/claims/fraud", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setFraudClaims(response.data);

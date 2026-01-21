@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
-
+import API from "../../api";
 export default function AgentRegister({ onBack }) {
   const [newAgent, setNewAgent] = useState({ name: "", email: "", password: "" });
   const [success, setSuccess] = useState("");
@@ -56,8 +55,8 @@ export default function AgentRegister({ onBack }) {
         return;
       }
 
-      const response = await axios.post(
-        "http://localhost:8080/admin/agent/register",
+      const response = await API.post(
+        "admin/agent/register",
         newAgent,
         {
           headers: {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import API from "../../../api";
 import EmployeeClaims from './EmployeeClaims';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -195,7 +195,7 @@ export default function EmployeeDashboard() {
   // ------------------ KEEPING ORIGINAL EMPLOYEE FETCH ------------------
   const fetchLoggedInEmployee = async (token) => {
     try {
-      const response = await axios.get("http://localhost:8080/auth/employees", {
+      const response = await API.get("/auth/employees", {
         headers: { Authorization: `Bearer ${token}` }
       });
 
@@ -223,7 +223,7 @@ export default function EmployeeDashboard() {
   const fetchEmployeeData = async (token) => {
     setLoading(prev => ({ ...prev, policies: true }));
     try {
-      const response = await axios.get("http://localhost:8080/employee/policies", {
+      const response = await API.get("/employee/policies", {
         headers: { Authorization: `Bearer ${token}` }
       });
 
@@ -258,7 +258,7 @@ export default function EmployeeDashboard() {
   const fetchEmployeeClaims = async (token) => {
     setLoading(prev => ({ ...prev, claims: true }));
     try {
-      const response = await axios.get("http://localhost:8080/employee/claims", {
+      const response = await API.get("/employee/claims", {
         headers: { Authorization: `Bearer ${token}` }
       });
       setClaims(response.data);
@@ -272,7 +272,7 @@ export default function EmployeeDashboard() {
   // ------------------ KEEPING ORIGINAL AGENTS FETCH ------------------
   const fetchAgents = async (token) => {
     try {
-      const response = await axios.get("http://localhost:8080/agent/availability/all", {
+      const response = await API.get("/agent/availability/all", {
         headers: { Authorization: `Bearer ${token}` }
       });
       setAgentsAvailability(response.data);
@@ -285,7 +285,7 @@ export default function EmployeeDashboard() {
   const fetchEmployeeQueries = async (token) => {
     setLoading(prev => ({ ...prev, queries: true }));
     try {
-      const response = await axios.get("http://localhost:8080/employee/queries", {
+      const response = await API.get("/employee/queries", {
         headers: { Authorization: `Bearer ${token}` }
       });
       setQueries(response.data);
@@ -419,8 +419,8 @@ export default function EmployeeDashboard() {
     setLoading(prev => ({ ...prev, queries: true }));
 
     try {
-      const response = await axios.post(
-        `http://localhost:8080/employee/queries?agentId=${selectedAgentId}&queryText=${encodeURIComponent(newQuery.queryText)}&policyName=${encodeURIComponent(policyName)}&claimType=${encodeURIComponent(newQuery.claimType)}`,
+      const response = await API.post(
+        `/employee/queries?agentId=${selectedAgentId}&queryText=${encodeURIComponent(newQuery.queryText)}&policyName=${encodeURIComponent(policyName)}&claimType=${encodeURIComponent(newQuery.claimType)}`,
         null,
         {
           headers: {

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import axios from "axios";
+import API from "../../api";
+
 
 export default function EmployeeLogin() {
   const [email, setEmail] = useState("");
@@ -30,7 +31,7 @@ export default function EmployeeLogin() {
     }
 
     try {
-      const res = await axios.post("http://localhost:8080/auth/login", {
+      const res = await API.post("auth/login", {
         email: email.trim().toLowerCase(),
         password,
       });

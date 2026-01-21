@@ -1,6 +1,7 @@
 // src/components/notification/EmployeeNotification.jsx
 import React, { useEffect, useState, useMemo } from "react";
-import axios from "axios";
+import API from "../../../api";
+import { API_BASE_URL } from "../../../api";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
@@ -29,8 +30,8 @@ export default function EmployeeNotification({ userDbId, token }) {
       try {
         const url =
           filter === "unread"
-            ? `http://localhost:8080/notifications/user/${Number(userDbId)}/unread`
-            : `http://localhost:8080/notifications/user/${Number(userDbId)}`;
+            ? `${API_BASE_URL} /notifications/user/${Number(userDbId)}/unread`
+            : `${API_BASE_URL} /notifications/user/${Number(userDbId)}`;
 
         const response = await axios.get(url, {
           params: { role: "EMPLOYEE" },
@@ -60,8 +61,8 @@ export default function EmployeeNotification({ userDbId, token }) {
   // ---------------- Mark Single Notification as Read ----------------
   const markAsRead = async (notificationId) => {
     try {
-      const response = await axios.put(
-        `http://localhost:8080/notifications/${Number(notificationId)}/read`,
+      const response = await API.put(
+        `/notifications/${Number(notificationId)}/read`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -105,8 +106,8 @@ export default function EmployeeNotification({ userDbId, token }) {
     try {
       await Promise.all(
         Array.from(selectedNotifications).map((id) =>
-          axios.put(
-            `http://localhost:8080/notifications/${Number(id)}/read`,
+          API.put(
+            `/notifications/${Number(id)}/read`,
             {},
             { headers: { Authorization: `Bearer ${token}` } }
           )

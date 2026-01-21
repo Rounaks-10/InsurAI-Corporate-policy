@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import API from "../../api";
 
 export default function HrRegister({ onBack }) {
   const [newHr, setNewHr] = useState({
@@ -89,8 +89,8 @@ const handlePhoneChange = (e) => {
         return;
       }
 
-      const response = await axios.post(
-        "http://localhost:8080/admin/hr/register",
+      const response = await API.post(
+        "/admin/hr/register",
         newHr,
         {
           headers: { 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../../api";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, LineChart, Line } from 'recharts';
@@ -49,11 +49,11 @@ export default function AdminReportsAnalytics() {
       setLoading(true);
       try {
         const [usersRes, claimsRes, policiesRes, hrsRes, agentsRes] = await Promise.all([
-          axios.get("http://localhost:8080/auth/employees", { headers: { Authorization: `Bearer ${token}` } }),
-          axios.get("http://localhost:8080/admin/claims", { headers: { Authorization: `Bearer ${token}` } }),
-          axios.get("http://localhost:8080/admin/policies", { headers: { Authorization: `Bearer ${token}` } }),
-          axios.get("http://localhost:8080/hr", { headers: { Authorization: `Bearer ${token}` } }),
-          axios.get("http://localhost:8080/agent", { headers: { Authorization: `Bearer ${token}` } }),
+          API.get("/auth/employees", { headers: { Authorization: `Bearer ${token}` } }),
+          API.get("/admin/claims", { headers: { Authorization: `Bearer ${token}` } }),
+          API.get("/admin/policies", { headers: { Authorization: `Bearer ${token}` } }),
+          API.get("/hr", { headers: { Authorization: `Bearer ${token}` } }),
+          API.get("/agent", { headers: { Authorization: `Bearer ${token}` } }),
         ]);
 
         setUsers(usersRes.data || []);

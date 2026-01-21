@@ -1,13 +1,14 @@
 import axios from "axios";
 
+export const API_BASE_URL = "https://insurai-corporate-policy-1.onrender.com";
+
 const API = axios.create({
-  baseURL: "http://localhost:8080", // backend base URL (no /api)
+  baseURL: API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-// Automatically attach token to every request
 API.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
@@ -20,3 +21,4 @@ API.interceptors.request.use(
 );
 
 export default API;
+
