@@ -8,6 +8,7 @@ const API = axios.create({
     "Content-Type": "application/json",
   },
 });
+// https://insurai-corporate-policy-1.onrender.com
 
 API.interceptors.request.use(
   (config) => {
