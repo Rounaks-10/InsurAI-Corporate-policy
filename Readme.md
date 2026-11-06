@@ -1,4 +1,4 @@
-# 🏢 InsurAI – Corporate Policy Automation and Intelligence System
+# InsurAI – Corporate Policy Automation and Intelligence System
 
 ## 📌 Project Overview
 InsurAI is a corporate insurance management system built using **React (frontend)** and **Spring Boot (backend)** with **MySQL database**.  
@@ -119,5 +119,5 @@ The project is organized into multiple modules and milestones as per internship 
 
 ---
 
-## 🚧 Project Status
+## Project Status
 This project is **under development**. More milestones and features will be added soon.
