@@ -15,7 +15,9 @@ The project is organized into multiple modules and milestones as per internship 
 ### 📁 insurai-frontend
 - Contains the **React frontend** code.  
 - Includes interfaces for Admin, HR, Agent, and Employee.  
+## 🏗️ System Architecture
 
+![InsurAI System Architecture](assets/insurai-architecture.png)
 ### 📁 Milestone 1 – Authentication & Registration
 - Admin login with fixed credentials.  
 - Admin registers HR and Agent accounts.  
